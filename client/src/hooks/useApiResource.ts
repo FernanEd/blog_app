@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { SERVER_URL } from "../utils/constants";
 
 const useApiResource = <T>(route: string) => {
-  const [resource, setResource] = useState<Array<T>>([]);
+  const [resource, setResource] = useState<Array<T & { _id: string }>>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<Error>();
 

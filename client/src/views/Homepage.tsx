@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import Layout from "../components/Layout";
+import PostCard from "../components/PostCard";
 import useApiResource from "../hooks/useApiResource";
 import { IPost } from "../utils/interfaces";
 
@@ -12,12 +13,16 @@ const Homepage: React.FunctionComponent = ({}) => {
 
   return (
     <Layout>
-      lol
-      <section id="posts-wrapper">
-        {posts.map((post) => (
-          <li>{post.content}</li>
-        ))}
-      </section>
+      {isLoading ? (
+        <p>Loading...</p>
+      ) : (
+        <section id="posts-wrapper" className="flex flex-col gap-4">
+          <h1 className="text-xl">Posts</h1>
+          {posts.map((post) => (
+            <PostCard key={post._id} {...post} />
+          ))}
+        </section>
+      )}
     </Layout>
   );
 };

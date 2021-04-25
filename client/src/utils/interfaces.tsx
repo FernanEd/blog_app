@@ -1,11 +1,11 @@
-export interface IComment extends Document {
+export interface IComment {
   content: string;
   timestamp: Date;
   poster: string;
   originalPost: IPost;
 }
 
-export interface IPost extends Document {
+export interface IPost {
   title: string;
   content: string;
   author: IUser;
@@ -14,7 +14,7 @@ export interface IPost extends Document {
   isPublished: boolean;
 }
 
-export interface IUser extends Document {
+export interface IUser {
   username: string;
   password: string;
   isAdmin: boolean;
