@@ -1,8 +1,12 @@
+import { useEffect, useState } from "react";
 import { useParams } from "react-router";
+import CommentCard from "../components/CommentCard";
 import Layout from "../components/Layout";
 import PostArticle from "../components/PostArticle";
 import useOneApiResource from "../hooks/useOneApiResource";
-import { IPost } from "../utils/interfaces";
+import { SERVER_URL } from "../utils/constants";
+import formatDate from "../utils/formatDate";
+import { IComment, IPost } from "../utils/interfaces";
 
 interface Props {}
 
@@ -18,6 +22,27 @@ const Postpage: React.FunctionComponent = ({}) => {
     id
   );
 
+  const [comments, setComments] = useState<Array<IComment & { _id: string }>>(
+    []
+  );
+  const [commentsLoading, setCommentsLoading] = useState(true);
+  const [commentsFailed, setCommentsFailed] = useState<Error>();
+
+  useEffect(() => {
+    const getComments = async () => {
+      try {
+        const res = await fetch(`${SERVER_URL}/api/comments/post/${id}`);
+        const data = await res.json();
+        setComments(data);
+      } catch (err) {
+        setCommentsFailed(err);
+      } finally {
+        setCommentsLoading(false);
+      }
+    };
+    getComments();
+  }, [isLoading]);
+
   return (
     <Layout>
       <section id="post-page">
@@ -32,6 +57,13 @@ const Postpage: React.FunctionComponent = ({}) => {
         </main>
         <footer>
           <h3 className="text-lg">Comments</h3>
+          <section id="comments-wrapper" className="flex flex-col gap-4">
+            {commentsLoading ? (
+              <p>Loading...</p>
+            ) : (
+              comments.map((comment) => <CommentCard {...comment} />)
+            )}
+          </section>
         </footer>
       </section>
     </Layout>

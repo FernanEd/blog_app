@@ -1,28 +1,24 @@
 import { Link } from "react-router-dom";
 import formatDate from "../utils/formatDate";
-import { IPost } from "../utils/interfaces";
+import { IComment } from "../utils/interfaces";
 
 interface Props {}
 
-const PostCard: React.FunctionComponent<IPost & { _id: string }> = ({
+const CommentCard: React.FunctionComponent<IComment & { _id: string }> = ({
   _id,
-  author,
-  isPublished,
-  title,
+  content,
+  poster,
   timestamp,
-  keywords,
 }) => {
   return (
     <article className="bg-dark-100 shadow-md rounded-sm p-4">
       <header className="flex justify-between">
-        <Link to={`/posts/${_id}`}>
-          <h2>{title}</h2>
-        </Link>
+        <h3>{poster}</h3>
         <p>Posted on: {formatDate(timestamp)}</p>
       </header>
-      <p>By: {author.username}</p>
+      <p>{content}</p>
     </article>
   );
 };
 
-export default PostCard;
+export default CommentCard;
