@@ -5,7 +5,7 @@ interface Props {}
 const Header: React.FunctionComponent = ({}) => {
   return (
     <header id="main-header">
-      <h1 id="logo" className="text-xl font-bold">
+      <h1 id="logo" className="text-3xl font-bold">
         FernanEd's Blog
       </h1>
 

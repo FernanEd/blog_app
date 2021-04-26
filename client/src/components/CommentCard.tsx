@@ -13,7 +13,7 @@ const CommentCard: React.FunctionComponent<IComment & { _id: string }> = ({
   return (
     <article className="bg-dark-100 shadow-md rounded-sm p-4">
       <header className="flex justify-between">
-        <h3>{poster}</h3>
+        <h3 className="text-primary">{poster}</h3>
         <p>Posted on: {formatDate(timestamp)}</p>
       </header>
       <p>{content}</p>

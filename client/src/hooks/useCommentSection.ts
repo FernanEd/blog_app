@@ -1,17 +1,20 @@
 import { useEffect, useState } from "react";
 import { SERVER_URL } from "../utils/constants";
+import { IComment } from "../utils/interfaces";
 
-const useApiResource = <T>(route: string) => {
-  const [resource, setResource] = useState<Array<T & { _id: string }>>([]);
+const useCommentSection = (postID: string) => {
+  const [comments, setComments] = useState<Array<IComment & { _id: string }>>(
+    []
+  );
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<Error>();
 
   useEffect(() => {
     const getResource = async () => {
       try {
-        const res = await fetch(`${SERVER_URL}/api/${route}`);
+        const res = await fetch(`${SERVER_URL}/api/comments/post/${postID}`);
         const data = await res.json();
-        setResource(data);
+        setComments(data);
       } catch (err) {
         setError(error);
       } finally {
@@ -21,11 +24,11 @@ const useApiResource = <T>(route: string) => {
     getResource();
   }, []);
 
-  const addResource = async (newResource: T) => {
+  const addComment = async (newComment: IComment) => {
     try {
-      let res = await fetch(`${SERVER_URL}/api/${route}`, {
+      let res = await fetch(`${SERVER_URL}/api/comments/`, {
         method: "POST",
-        body: JSON.stringify(newResource),
+        body: JSON.stringify(newComment),
         // headers: {
         //   Authorization: webToken,
         //   "Content-Type": "application/json",
@@ -33,16 +36,16 @@ const useApiResource = <T>(route: string) => {
       });
       let data = await res.json();
       if (data._id) {
-        setResource((prevResource) => [...prevResource, data]);
+        setComments((prevComments) => [...prevComments, data]);
       }
     } catch (err) {
       setError(err.message);
     }
   };
 
-  const deleteResource = async (resourceID: string) => {
+  const deleteComment = async (resourceID: string) => {
     try {
-      let res = await fetch(`${SERVER_URL}/api/${route}/${resourceID}`, {
+      let res = await fetch(`${SERVER_URL}/api/comments/${resourceID}`, {
         method: "DELETE",
         // headers: {
         //   Authorization: webToken,
@@ -51,8 +54,8 @@ const useApiResource = <T>(route: string) => {
       });
       let data = await res.json();
       if (data._id) {
-        setResource((prevResource) =>
-          prevResource.filter((newResource) => newResource._id !== resourceID)
+        setComments((prevComments) =>
+          prevComments.filter((newComment) => newComment._id !== resourceID)
         );
       }
     } catch (err) {
@@ -60,11 +63,11 @@ const useApiResource = <T>(route: string) => {
     }
   };
 
-  const updateResource = async (resourceID: string, newResource: T) => {
+  const updateComment = async (resourceID: string, newComment: IComment) => {
     try {
-      let res = await fetch(`${SERVER_URL}/api/${route}/${resourceID}`, {
+      let res = await fetch(`${SERVER_URL}/api/comments/${resourceID}`, {
         method: "PUT",
-        body: JSON.stringify(newResource),
+        body: JSON.stringify(newComment),
         // headers: {
         //   Authorization: webToken,
         //   "Content-Type": "application/json",
@@ -72,9 +75,9 @@ const useApiResource = <T>(route: string) => {
       });
       let data = await res.json();
       if (data._id) {
-        setResource((prevResource) =>
-          prevResource.map((oldRes: T & { _id: string }) =>
-            oldRes._id === resourceID ? data : oldRes
+        setComments((prevComments) =>
+          prevComments.map((oldComment: IComment & { _id: string }) =>
+            oldComment._id === resourceID ? data : oldComment
           )
         );
       }
@@ -84,13 +87,13 @@ const useApiResource = <T>(route: string) => {
   };
 
   return {
-    resource,
+    comments,
     isLoading,
     error,
-    addResource,
-    updateResource,
-    deleteResource,
+    addComment,
+    updateComment,
+    deleteComment,
   };
 };
 
-export default useApiResource;
+export default useCommentSection;
