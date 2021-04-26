@@ -26,10 +26,10 @@ const useApiResource = <T>(route: string) => {
       let res = await fetch(`${SERVER_URL}/api/${route}`, {
         method: "POST",
         body: JSON.stringify(newResource),
-        // headers: {
-        //   Authorization: webToken,
-        //   "Content-Type": "application/json",
-        // },
+        headers: {
+          // Authorization: webToken,
+          "Content-Type": "application/json",
+        },
       });
       let data = await res.json();
       if (data._id) {
@@ -44,10 +44,10 @@ const useApiResource = <T>(route: string) => {
     try {
       let res = await fetch(`${SERVER_URL}/api/${route}/${resourceID}`, {
         method: "DELETE",
-        // headers: {
-        //   Authorization: webToken,
-        //   "Content-Type": "application/x-www-form-urlencoded",
-        // },
+        headers: {
+          // Authorization: webToken,
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
       });
       let data = await res.json();
       if (data._id) {
@@ -65,10 +65,10 @@ const useApiResource = <T>(route: string) => {
       let res = await fetch(`${SERVER_URL}/api/${route}/${resourceID}`, {
         method: "PUT",
         body: JSON.stringify(newResource),
-        // headers: {
-        //   Authorization: webToken,
-        //   "Content-Type": "application/json",
-        // },
+        headers: {
+          // Authorization: webToken,
+          "Content-Type": "application/json",
+        },
       });
       let data = await res.json();
       if (data._id) {

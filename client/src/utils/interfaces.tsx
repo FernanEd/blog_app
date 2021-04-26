@@ -2,7 +2,7 @@ export interface IComment {
   content: string;
   timestamp: Date;
   poster: string;
-  originalPost: IPost;
+  originalPost: string;
 }
 
 export interface IPost {

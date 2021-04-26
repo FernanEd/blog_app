@@ -6,9 +6,11 @@ POST http://localhost:4001/api/comments
 Content-Type: application/json
 
 {
-  "content": "tercer comentario",
-  "poster": "la erika",
-  "originalPost": "6085db240954491acdd87b2c"
+"content": "aaa",
+​
+"originalPost": "6085dafe0954491acdd87b2b",
+​
+"poster": "eeeaa"
 }
 
 ###

@@ -25,14 +25,15 @@ const useCommentSection = (postID: string) => {
   }, []);
 
   const addComment = async (newComment: IComment) => {
+    console.log(newComment, JSON.stringify(newComment));
     try {
-      let res = await fetch(`${SERVER_URL}/api/comments/`, {
+      let res = await fetch(`${SERVER_URL}/api/comments`, {
         method: "POST",
         body: JSON.stringify(newComment),
-        // headers: {
-        //   Authorization: webToken,
-        //   "Content-Type": "application/json",
-        // },
+        headers: {
+          // Authorization: webToken,
+          "Content-Type": "application/json",
+        },
       });
       let data = await res.json();
       if (data._id) {
@@ -47,10 +48,10 @@ const useCommentSection = (postID: string) => {
     try {
       let res = await fetch(`${SERVER_URL}/api/comments/${resourceID}`, {
         method: "DELETE",
-        // headers: {
-        //   Authorization: webToken,
-        //   "Content-Type": "application/x-www-form-urlencoded",
-        // },
+        headers: {
+          // Authorization: webToken,
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
       });
       let data = await res.json();
       if (data._id) {
@@ -68,10 +69,10 @@ const useCommentSection = (postID: string) => {
       let res = await fetch(`${SERVER_URL}/api/comments/${resourceID}`, {
         method: "PUT",
         body: JSON.stringify(newComment),
-        // headers: {
-        //   Authorization: webToken,
-        //   "Content-Type": "application/json",
-        // },
+        headers: {
+          // Authorization: webToken,
+          "Content-Type": "application/json",
+        },
       });
       let data = await res.json();
       if (data._id) {
