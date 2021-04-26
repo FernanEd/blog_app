@@ -23,8 +23,12 @@ app.use(morgan("common"));
 // Routers
 
 import userRouter from "./resources/user/user.router";
+import commentRouter from "./resources/comment/comment.router";
+import postRouter from "./resources/post/post.router";
 
 app.use("/api/users", userRouter);
+app.use("/api/comments", commentRouter);
+app.use("/api/posts", postRouter);
 
 app.get("/", (req, res) => {
   res.send("Hello");

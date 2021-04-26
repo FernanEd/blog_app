@@ -1,0 +1,28 @@
+GET http://localhost:4001/api/posts
+
+###
+
+POST http://localhost:4001/api/posts
+Content-Type: application/json
+
+{
+  "content": "lorem ipsum 2",
+  "author": "6085d9f8b496781934ea4d4c",
+  "title": "Segundo post",
+  "keywords": ["lorem", "si"]
+}
+
+###
+
+PUT http://localhost:4001/api/posts/
+Content-Type: application/json
+
+{
+  "username": "moni",
+  "password": "moni123",
+  "isAdmin": true
+}
+
+###
+
+DELETE http://localhost:4001/api/posts/

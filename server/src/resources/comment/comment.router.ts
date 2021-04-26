@@ -3,6 +3,8 @@ import controller from "./comment.controllers";
 
 const router = Router();
 
+router.route("/post/:id").get(controller.getCommentsOfPost);
+
 router.route("/").get(controller.getMany).post(controller.createOne);
 
 router

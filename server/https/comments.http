@@ -1,0 +1,31 @@
+GET http://localhost:4001/api/comments
+
+###
+
+POST http://localhost:4001/api/comments
+Content-Type: application/json
+
+{
+  "content": "tercer comentario",
+  "poster": "la erika",
+  "originalPost": "6085db240954491acdd87b2c"
+}
+
+###
+
+PUT http://localhost:4001/api/comments/
+Content-Type: application/json
+
+{
+  "username": "moni",
+  "password": "moni123",
+  "isAdmin": true
+}
+
+###
+
+DELETE http://localhost:4001/api/comments/
+
+###
+
+GET http://localhost:4001/api/comments/post/6085db240954491acdd87b2c

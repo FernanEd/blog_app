@@ -1,0 +1,27 @@
+GET http://localhost:4001/api/users
+
+###
+
+POST http://localhost:4001/api/users
+Content-Type: application/json
+
+{
+  "username": "moni",
+  "password": "moni123",
+  "isAdmin": true
+}
+
+###
+
+PUT http://localhost:4001/api/users/
+Content-Type: application/json
+
+{
+  "username": "moni",
+  "password": "moni123",
+  "isAdmin": true
+}
+
+###
+
+DELETE http://localhost:4001/api/users/
