@@ -17,10 +17,12 @@ const Homepage: React.FunctionComponent = ({}) => {
         <p>Loading...</p>
       ) : (
         <section id="posts-wrapper" className="flex flex-col gap-4">
-          <h1 className="text-xl">Posts</h1>
-          {posts.map((post) => (
-            <PostCard key={post._id} {...post} />
-          ))}
+          <h1 className="text-3xl">Posts</h1>
+          {posts
+            .filter((post) => post.isPublished)
+            .map((post) => (
+              <PostCard key={post._id} {...post} />
+            ))}
         </section>
       )}
     </Layout>

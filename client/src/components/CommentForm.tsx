@@ -18,7 +18,7 @@ const CommentForm: React.FunctionComponent<Props> = ({ submitComment }) => {
         <label>Your name</label>
         <input
           type="text"
-          className="w-full rounded-md shadow-md text-dark-300 bg-gray-100 p-1"
+          className="w-full rounded-md shadow-md text-dark-300 bg-gray-200 p-1"
           name="poster"
           ref={register({ required: true })}
         />
@@ -26,7 +26,7 @@ const CommentForm: React.FunctionComponent<Props> = ({ submitComment }) => {
       <div>
         <textarea
           rows={4}
-          className="w-full rounded-md shadow-md text-dark-300 bg-gray-100 p-1"
+          className="w-full rounded-md shadow-md text-dark-300 bg-gray-200 p-1"
           name="content"
           ref={register({ required: true })}
         ></textarea>

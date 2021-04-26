@@ -15,7 +15,7 @@ interface RouteParams {
   id: "string";
 }
 
-const Postpage: React.FunctionComponent = ({}) => {
+const NewPostpage: React.FunctionComponent = ({}) => {
   const { id } = useParams<RouteParams>();
 
   const { resource: post, isLoading, error } = useOneApiResource<IPost>(
@@ -26,22 +26,10 @@ const Postpage: React.FunctionComponent = ({}) => {
   return (
     <Layout>
       <section id="post-page">
-        <main>
-          {isLoading ? (
-            <p>Loading...</p>
-          ) : post && post.isPublished ? (
-            <PostArticle {...post} />
-          ) : post && post.isPublished === false ? (
-            <p>Content not found.</p>
-          ) : (
-            error
-          )}
-        </main>
-        <hr className="border border-dark-100 my-4" />
-        <CommentSection postID={id} />
+        <form action="">aaaaaaaaa</form>
       </section>
     </Layout>
   );
 };
 
-export default Postpage;
+export default NewPostpage;

@@ -21,7 +21,7 @@ body {
 }
 
 #main-header {
-  @apply text-white bg-primary;
+  @apply text-white bg-primary shadow-md;
 
   display: flex;
   justify-content: space-between;

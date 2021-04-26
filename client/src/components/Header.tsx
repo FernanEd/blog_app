@@ -6,14 +6,14 @@ const Header: React.FunctionComponent = ({}) => {
   return (
     <header id="main-header">
       <h1 id="logo" className="text-3xl font-bold">
-        FernanEd's Blog
+        Noobie Blog
       </h1>
 
       <nav>
         <Link to="/" className="text-white">
           Home
         </Link>
-        <Link to="/" className="text-white">
+        <Link to="/admin" className="text-white">
           <button className="btn btn-success">Admin</button>
         </Link>
       </nav>
