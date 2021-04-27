@@ -13,6 +13,7 @@ import Homepage from "./views/Homepage";
 import Loginpage from "./views/Loginpage";
 import Postpage from "./views/Postpage";
 import AddPostpage from "./views/AddPostpage";
+import EditPostpage from "./views/EditPostpage";
 
 export const currentUserContext = React.createContext<string>("");
 
@@ -41,6 +42,9 @@ function App() {
             </Route>
             <Route path="/admin/addpost" exact={true}>
               {loggedIn ? <AddPostpage /> : <Redirect to="/login" />}
+            </Route>
+            <Route path="/admin/editpost/:id" exact={true}>
+              {loggedIn ? <EditPostpage /> : <Redirect to="/login" />}
             </Route>
           </Switch>
         </Router>

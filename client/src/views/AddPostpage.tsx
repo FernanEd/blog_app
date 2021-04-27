@@ -1,9 +1,10 @@
 import { useContext } from "react";
 import { useForm } from "react-hook-form";
-import { Redirect, useHistory } from "react-router";
+import { Redirect, useHistory, useLocation } from "react-router";
 import { currentUserContext } from "../App";
 import Layout from "../components/Layout";
 import useApiResource from "../hooks/useApiResource";
+import usePosts from "../hooks/usePosts";
 import { IPost } from "../utils/interfaces";
 
 interface Props {}
@@ -11,13 +12,12 @@ interface Props {}
 const AddPostpage: React.FunctionComponent<Props> = ({}) => {
   const userID = useContext(currentUserContext);
   const { register, handleSubmit, errors } = useForm();
-  const { addResource } = useApiResource<IPost>("posts", false);
-
+  const { addPost } = usePosts(false);
   const history = useHistory();
 
   const createPost = (post: IPost) => {
-    addResource({ ...post, author: userID });
-    history.push("/admin");
+    addPost({ ...post, author: userID });
+    history.push("/admin/");
   };
 
   return (

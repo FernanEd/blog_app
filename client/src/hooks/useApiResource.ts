@@ -1,8 +1,11 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { SERVER_URL } from "../utils/constants";
+import makeObservable from "../utils/makeObservable";
 
 const useApiResource = <T>(route: string, makeQuery = true) => {
-  const [resource, setResource] = useState<Array<T & { _id: string }>>([]);
+  const resourceStore = makeObservable(<Array<T & { _id: string }>>[]);
+
+  const [resources, setResources] = useState(resourceStore.get());
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<Error>();
 
@@ -11,7 +14,7 @@ const useApiResource = <T>(route: string, makeQuery = true) => {
       try {
         const res = await fetch(`${SERVER_URL}/api/${route}`);
         const data = await res.json();
-        setResource(data);
+        setResources(data);
       } catch (err) {
         setError(error);
       } finally {
@@ -21,6 +24,8 @@ const useApiResource = <T>(route: string, makeQuery = true) => {
     if (makeQuery) {
       getResource();
     }
+
+    return resourceStore.subscribe(setResources);
   }, []);
 
   const addResource = async (newResource: T) => {
@@ -35,7 +40,7 @@ const useApiResource = <T>(route: string, makeQuery = true) => {
       });
       let data = await res.json();
       if (data._id) {
-        setResource((prevResource) => [...prevResource, data]);
+        resourceStore.set([...resources, data]);
       }
     } catch (err) {
       setError(err.message);
@@ -53,8 +58,8 @@ const useApiResource = <T>(route: string, makeQuery = true) => {
       });
       let data = await res.json();
       if (data._id) {
-        setResource((prevResource) =>
-          prevResource.filter((newResource) => newResource._id !== resourceID)
+        resourceStore.set(
+          resources.filter((newResource) => newResource._id !== resourceID)
         );
       }
     } catch (err) {
@@ -74,8 +79,8 @@ const useApiResource = <T>(route: string, makeQuery = true) => {
       });
       let data = await res.json();
       if (data._id) {
-        setResource((prevResource) =>
-          prevResource.map((oldRes: T & { _id: string }) =>
+        resourceStore.set(
+          resources.map((oldRes: T & { _id: string }) =>
             oldRes._id === resourceID ? data : oldRes
           )
         );
@@ -85,13 +90,19 @@ const useApiResource = <T>(route: string, makeQuery = true) => {
     }
   };
 
+  const actions = useMemo(() => {
+    return {
+      addResource,
+      updateResource,
+      deleteResource,
+    };
+  }, [resources]);
+
   return {
-    resource,
+    resources,
     isLoading,
     error,
-    addResource,
-    updateResource,
-    deleteResource,
+    actions,
   };
 };
 
