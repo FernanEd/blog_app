@@ -8,9 +8,8 @@ export interface IComment {
 export interface IPost {
   title: string;
   content: string;
-  author: IUser;
+  author: IUser | string;
   timestamp: Date;
-  keywords: string[];
   isPublished: boolean;
 }
 

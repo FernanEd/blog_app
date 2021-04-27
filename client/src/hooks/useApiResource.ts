@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { SERVER_URL } from "../utils/constants";
 
-const useApiResource = <T>(route: string) => {
+const useApiResource = <T>(route: string, makeQuery = true) => {
   const [resource, setResource] = useState<Array<T & { _id: string }>>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<Error>();
@@ -18,7 +18,9 @@ const useApiResource = <T>(route: string) => {
         setIsLoading(false);
       }
     };
-    getResource();
+    if (makeQuery) {
+      getResource();
+    }
   }, []);
 
   const addResource = async (newResource: T) => {

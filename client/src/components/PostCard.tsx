@@ -10,7 +10,6 @@ const PostCard: React.FunctionComponent<IPost & { _id: string }> = ({
   isPublished,
   title,
   timestamp,
-  keywords,
 }) => {
   return (
     <article className="bg-dark-100 shadow-md rounded-sm p-4 border-l-2 border-link">
@@ -20,7 +19,14 @@ const PostCard: React.FunctionComponent<IPost & { _id: string }> = ({
         </Link>
         <p>Posted on: {formatDate(timestamp)}</p>
       </header>
-      <p>By: {author.username}</p>
+      <p>
+        By:{" "}
+        {typeof author !== "string"
+          ? "username" in author
+            ? author.username
+            : null
+          : null}
+      </p>
     </article>
   );
 };

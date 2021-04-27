@@ -1,3 +1,4 @@
+import ReactMarkdown from "react-markdown";
 import { IPost } from "../utils/interfaces";
 
 interface Props {}
@@ -6,17 +7,29 @@ const PostArticle: React.FunctionComponent<IPost & { _id: string }> = ({
   _id,
   author,
   isPublished,
+  content,
   title,
   timestamp,
-  keywords,
 }) => {
   return (
     <article id="post" className="bg-dark-100 shadow-md rounded-sm p-4">
       <header className="flex justify-between">
-        <h2>{title}</h2>
+        <p>
+          Author:{" "}
+          {typeof author !== "string"
+            ? "username" in author
+              ? author.username
+              : null
+            : null}
+        </p>
         <p>Posted on: {new Date(timestamp).toLocaleDateString("en-US")}</p>
       </header>
-      <p>By: {author.username}</p>
+      <main className="my-4">
+        <h2 className="text-2xl font-bold">{title}</h2>
+        <section className="post-md">
+          <ReactMarkdown>{content}</ReactMarkdown>
+        </section>
+      </main>
     </article>
   );
 };
