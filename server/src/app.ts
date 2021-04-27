@@ -1,25 +1,21 @@
 import express from "express";
 import config from "./utils/config";
 import mongoose from "mongoose";
-
 const app = express();
 
 // Middleware
 
 import cors from "cors";
 import morgan from "morgan";
-
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan("common"));
 
-// import { signin, protect, verify } from "./utils/auth";
+import { signin, verify } from "./utils/auth";
 
-// app.post("/signin", signin);
-// app.use("/verify", verify);
-// app.use("/api", protect);
-
+app.post("/signin", signin);
+app.use("/verify", verify);
 // Routers
 
 import userRouter from "./resources/user/user.router";

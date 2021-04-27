@@ -1,14 +1,16 @@
 import { Router } from "express";
 import controller from "./user.controllers";
 
+import { protect } from "../../utils/auth";
+
 const router = Router();
 
-router.route("/").get(controller.getMany).post(controller.createOne);
+router.route("/").get(controller.getMany).post(protect, controller.createOne);
 
 router
   .route("/:id")
   .get(controller.getOne)
-  .put(controller.updateOne)
-  .delete(controller.deleteOne);
+  .put(protect, controller.updateOne)
+  .delete(protect, controller.deleteOne);
 
 export default router;
