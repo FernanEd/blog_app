@@ -7,6 +7,7 @@ import {
   useRouteMatch,
   useParams,
   Redirect,
+  useHistory,
 } from "react-router-dom";
 import Adminpage from "./views/Adminpage";
 import Homepage from "./views/Homepage";
@@ -14,18 +15,43 @@ import Loginpage from "./views/Loginpage";
 import Postpage from "./views/Postpage";
 import AddPostpage from "./views/AddPostpage";
 import EditPostpage from "./views/EditPostpage";
+import { IUser } from "./utils/interfaces";
+import { SERVER_URL } from "./utils/constants";
 
-export const currentUserContext = React.createContext<string>("");
+export const currentUserContext = React.createContext({
+  id: "",
+  token: "",
+  isLogged: false,
+  logout: () => {},
+});
 
 function App() {
-  const [loggedIn, setLoggedIn] = useState(true);
-  const [currentUserID, setCurrentUserID] = useState<string>(
-    "6085d9f8b496781934ea4d4c"
-  );
+  const [loggedIn, setLoggedIn] = useState(false);
+  const [currentUserID, setCurrentUserID] = useState<string>("");
+  const [jwt, setJwt] = useState("");
+
+  const logUser = (user: string, token: string) => {
+    setCurrentUserID(user);
+    setJwt("Bearer " + token);
+    setLoggedIn(true);
+  };
+
+  const logOut = () => {
+    setCurrentUserID("");
+    setJwt("");
+    setLoggedIn(false);
+  };
 
   return (
     <>
-      <currentUserContext.Provider value={currentUserID}>
+      <currentUserContext.Provider
+        value={{
+          id: currentUserID,
+          token: jwt,
+          isLogged: loggedIn,
+          logout: logOut,
+        }}
+      >
         <Router>
           <Switch>
             <Route path="/" exact={true}>
@@ -35,7 +61,7 @@ function App() {
               <Postpage />
             </Route>
             <Route path="/login">
-              <Loginpage />
+              <Loginpage logUser={logUser} />
             </Route>
             <Route path="/admin" exact={true}>
               {loggedIn ? <Adminpage /> : <Redirect to="/login" />}

@@ -1,10 +1,38 @@
 import { useForm } from "react-hook-form";
+import { useHistory } from "react-router";
 import Layout from "../components/Layout";
+import { SERVER_URL } from "../utils/constants";
+import { IUser } from "../utils/interfaces";
 
-interface Props {}
+interface Props {
+  logUser: Function;
+}
 
-const Loginpage: React.FunctionComponent<Props> = ({}) => {
+const Loginpage: React.FunctionComponent<Props> = ({ logUser }) => {
   const { register, handleSubmit, errors } = useForm();
+  const history = useHistory();
+
+  const submitUser = async (form: IUser) => {
+    try {
+      let res = await fetch(`${SERVER_URL}/signin`, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        method: "POST",
+        body: JSON.stringify(form),
+      });
+      let data = await res.json();
+
+      if (data.auth) {
+        logUser(data.user, data.token);
+        history.push("/admin");
+      } else {
+        errors.auth = data.message;
+      }
+    } catch (e) {
+      errors.auth = "Something went wrong";
+    }
+  };
 
   return (
     <Layout>
@@ -13,7 +41,7 @@ const Loginpage: React.FunctionComponent<Props> = ({}) => {
         <form
           action=""
           className="flex flex-col gap-4"
-          onSubmit={handleSubmit((form) => console.log(form))}
+          onSubmit={handleSubmit(submitUser)}
         >
           <div className="flex flex-col gap-2">
             <label>Your username</label>
@@ -39,6 +67,7 @@ const Loginpage: React.FunctionComponent<Props> = ({}) => {
               <p className="text-danger">Please fill this field</p>
             )}
           </div>
+          {errors.auth && <p className="text-danger">{errors.auth}</p>}
           <button className="btn btn-primary">Sign in</button>
         </form>
       </div>

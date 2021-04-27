@@ -1,10 +1,12 @@
-import { useEffect, useMemo, useState } from "react";
+import { useContext, useEffect, useMemo, useState } from "react";
+import { currentUserContext } from "../App";
 import { SERVER_URL } from "../utils/constants";
 import makeObservable from "../utils/makeObservable";
 
 const resourceStore = makeObservable(<Array<any & { _id: string }>>[]);
 
 const useApiResource = <T>(route: string, makeQuery = true) => {
+  const currentUser = useContext(currentUserContext);
   const [resources, setResources] = useState(resourceStore.get());
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<Error>();
@@ -38,7 +40,7 @@ const useApiResource = <T>(route: string, makeQuery = true) => {
             method: "POST",
             body: JSON.stringify(newResource),
             headers: {
-              // Authorization: webToken,
+              Authorization: currentUser.token,
               "Content-Type": "application/json",
             },
           });
@@ -56,7 +58,7 @@ const useApiResource = <T>(route: string, makeQuery = true) => {
             method: "PUT",
             body: JSON.stringify(newResource),
             headers: {
-              // Authorization: webToken,
+              Authorization: currentUser.token,
               "Content-Type": "application/json",
             },
           });
@@ -77,7 +79,7 @@ const useApiResource = <T>(route: string, makeQuery = true) => {
           let res = await fetch(`${SERVER_URL}/api/${route}/${resourceID}`, {
             method: "DELETE",
             headers: {
-              // Authorization: webToken,
+              Authorization: currentUser.token,
               "Content-Type": "application/x-www-form-urlencoded",
             },
           });

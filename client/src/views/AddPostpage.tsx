@@ -9,14 +9,14 @@ import { IPost } from "../utils/interfaces";
 interface Props {}
 
 const AddPostpage: React.FunctionComponent<Props> = ({}) => {
-  const userID = useContext(currentUserContext);
+  const currentUser = useContext(currentUserContext);
   const { register, handleSubmit, errors } = useForm();
   const { actions } = useApiResource<IPost>("posts", false);
 
   const history = useHistory();
 
   const createPost = (post: IPost) => {
-    actions.addResource({ ...post, author: userID });
+    actions.addResource({ ...post, author: currentUser.id });
     history.goBack();
   };
 
