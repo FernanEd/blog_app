@@ -35,6 +35,7 @@ function App() {
     const checkUserSession = async () => {
       const storedUser = localStorage.getItem("user");
       if (!storedUser) {
+        setIsLoading(false);
         return;
       }
 
