@@ -221,3 +221,8 @@ ins {
   padding-left: 1rem;
   list-style: decimal;
 }
+
+.post-md p {
+  line-height: normal;
+  margin: 1rem 0;
+}
