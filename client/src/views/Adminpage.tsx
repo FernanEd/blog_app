@@ -1,21 +1,20 @@
 import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { currentUserContext } from "../App";
 import Layout from "../components/Layout";
-import PostCard from "../components/PostCard";
-import PostForm from "./AddPostpage";
 import useApiResource from "../hooks/useApiResource";
 import { IPost } from "../utils/interfaces";
-import usePosts from "../hooks/usePosts";
 
 interface Props {}
 
 const Adminpage: React.FunctionComponent = ({}) => {
-  const { posts, updatePost, deletePost } = usePosts(true);
+  const { resources: posts, isLoading, error, actions } = useApiResource<IPost>(
+    "posts",
+    true
+  );
 
   const togglePublish = (post: IPost & { _id: string }) => {
     const toggled = post.isPublished ? false : true;
-    updatePost(post._id, { ...post, isPublished: toggled });
+    actions.updateResource(post._id, { ...post, isPublished: toggled });
   };
 
   return (
@@ -63,7 +62,7 @@ const Adminpage: React.FunctionComponent = ({}) => {
 
                     <button
                       className="btn btn-danger"
-                      onClick={() => deletePost(post._id)}
+                      onClick={() => actions.deleteResource(post._id)}
                     >
                       Delete post
                     </button>

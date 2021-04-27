@@ -7,7 +7,7 @@ import { IPost } from "../utils/interfaces";
 interface Props {}
 
 const Homepage: React.FunctionComponent = ({}) => {
-  const { resource: posts, isLoading, error } = useApiResource<IPost>("posts");
+  const { resources: posts, isLoading, error } = useApiResource<IPost>("posts");
 
   useEffect(() => {}, []);
 

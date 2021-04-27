@@ -15,7 +15,7 @@ const EditPostpage: React.FunctionComponent<Props> = ({}) => {
   const { id: postID } = useParams<RouteParams>();
 
   const { register, handleSubmit, errors } = useForm();
-  const { updateResource } = useApiResource<IPost>("posts", false);
+  const { actions } = useApiResource<IPost>("posts", false);
   const { resource: post, isLoading, error } = useOneApiResource<IPost>(
     "posts",
     postID
@@ -23,7 +23,7 @@ const EditPostpage: React.FunctionComponent<Props> = ({}) => {
   const history = useHistory();
 
   const updatePost = (post: IPost) => {
-    updateResource(postID, { ...post });
+    actions.updateResource(postID, { ...post });
     history.goBack();
   };
 
