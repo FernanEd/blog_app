@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   BrowserRouter as Router,
   Switch,
@@ -29,14 +29,50 @@ function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [currentUserID, setCurrentUserID] = useState<string>("");
   const [jwt, setJwt] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const checkUserSession = async () => {
+      const storedUser = localStorage.getItem("user");
+      if (!storedUser) {
+        return;
+      }
+
+      const user: { id: string; token: string } = JSON.parse(storedUser);
+      try {
+        let res = await fetch(`${SERVER_URL}/verify`, {
+          headers: {
+            Authorization: "Bearer " + user.token,
+          },
+        });
+        if (res.status === 200) {
+          logUser(user.id, user.token);
+        }
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    checkUserSession();
+  }, []);
 
   const logUser = (user: string, token: string) => {
+    localStorage.setItem(
+      "user",
+      JSON.stringify({
+        id: user,
+        token: token,
+      })
+    );
     setCurrentUserID(user);
     setJwt("Bearer " + token);
     setLoggedIn(true);
   };
 
   const logOut = () => {
+    localStorage.removeItem("user");
     setCurrentUserID("");
     setJwt("");
     setLoggedIn(false);
@@ -60,18 +96,23 @@ function App() {
             <Route path="/posts/:id">
               <Postpage />
             </Route>
-            <Route path="/login">
+            {isLoading ? (
+              <p>Loading...</p>
+            ) : loggedIn ? (
+              <>
+                <Route path="/admin" exact={true}>
+                  <Adminpage />
+                </Route>
+                <Route path="/admin/addpost" exact={true}>
+                  <AddPostpage />
+                </Route>
+                <Route path="/admin/editpost/:id" exact={true}>
+                  <EditPostpage />
+                </Route>{" "}
+              </>
+            ) : (
               <Loginpage logUser={logUser} />
-            </Route>
-            <Route path="/admin" exact={true}>
-              {loggedIn ? <Adminpage /> : <Redirect to="/login" />}
-            </Route>
-            <Route path="/admin/addpost" exact={true}>
-              {loggedIn ? <AddPostpage /> : <Redirect to="/login" />}
-            </Route>
-            <Route path="/admin/editpost/:id" exact={true}>
-              {loggedIn ? <EditPostpage /> : <Redirect to="/login" />}
-            </Route>
+            )}
           </Switch>
         </Router>
       </currentUserContext.Provider>

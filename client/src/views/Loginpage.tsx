@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useHistory } from "react-router";
 import Layout from "../components/Layout";
@@ -10,6 +11,7 @@ interface Props {
 
 const Loginpage: React.FunctionComponent<Props> = ({ logUser }) => {
   const { register, handleSubmit, errors } = useForm();
+  const [failedLogin, setFailedLogin] = useState("");
   const history = useHistory();
 
   const submitUser = async (form: IUser) => {
@@ -27,10 +29,10 @@ const Loginpage: React.FunctionComponent<Props> = ({ logUser }) => {
         logUser(data.user, data.token);
         history.push("/admin");
       } else {
-        errors.auth = data.message;
+        setFailedLogin(data.message);
       }
-    } catch (e) {
-      errors.auth = "Something went wrong";
+    } catch (err) {
+      setFailedLogin(`Something went wrong: ${err}`);
     }
   };
 
@@ -67,7 +69,7 @@ const Loginpage: React.FunctionComponent<Props> = ({ logUser }) => {
               <p className="text-danger">Please fill this field</p>
             )}
           </div>
-          {errors.auth && <p className="text-danger">{errors.auth}</p>}
+          {failedLogin !== "" && <p className="text-danger">{failedLogin}</p>}
           <button className="btn btn-primary">Sign in</button>
         </form>
       </div>
