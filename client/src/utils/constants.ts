@@ -1,1 +1,1 @@
-export const SERVER_URL = "http://localhost:4001";
+export const SERVER_URL = "https://limitless-ocean-98939.herokuapp.com";
