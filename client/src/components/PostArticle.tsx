@@ -1,5 +1,7 @@
 import ReactMarkdown from "react-markdown";
+import formatDate from "../utils/formatDate";
 import { IPost } from "../utils/interfaces";
+import "./PostArticle.css";
 
 interface Props {}
 
@@ -22,8 +24,9 @@ const PostArticle: React.FunctionComponent<IPost & { _id: string }> = ({
               : null
             : null}
         </p>
-        <p>Posted on: {new Date(timestamp).toLocaleDateString("en-US")}</p>
+        <p>Posted on: {formatDate(timestamp)}</p>
       </header>
+      <hr className="my-4 border border-white" />
       <main className="my-4">
         <h2 className="text-2xl font-bold">{title}</h2>
         <section className="post-md">

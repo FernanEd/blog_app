@@ -1,0 +1,223 @@
+.post-md html,
+address,
+.post-md blockquote,
+.post-md body,
+dd,
+div,
+.post-md dl,
+dt,
+fieldset,
+form,
+.post-md frame,
+frameset,
+.post-md h1,
+h2,
+h3,
+h4,
+.post-md h5,
+h6,
+noframes,
+.post-md ol,
+p,
+ul,
+center,
+.post-md dir,
+hr,
+menu,
+pre {
+  display: block;
+  unicode-bidi: embed;
+}
+.post-md li {
+  display: list-item;
+}
+.post-md head {
+  display: none;
+}
+.post-md table {
+  display: table;
+}
+.post-md tr {
+  display: table-row;
+}
+.post-md thead {
+  display: table-header-group;
+}
+.post-md tbody {
+  display: table-row-group;
+}
+.post-md tfoot {
+  display: table-footer-group;
+}
+.post-md col {
+  display: table-column;
+}
+.post-md colgroup {
+  display: table-column-group;
+}
+.post-md td,
+th {
+  display: table-cell;
+}
+.post-md caption {
+  display: table-caption;
+}
+.post-md th {
+  font-weight: bolder;
+  text-align: center;
+}
+.post-md caption {
+  text-align: center;
+}
+.post-md body {
+  margin: 8px;
+}
+.post-md h1 {
+  font-size: 2em;
+  margin: 0.67em 0;
+}
+.post-md h2 {
+  font-size: 1.5em;
+  margin: 0.75em 0;
+}
+.post-md h3 {
+  font-size: 1.17em;
+  margin: 0.83em 0;
+}
+.post-md h4,
+p,
+.post-md blockquote,
+ul,
+.post-md fieldset,
+form,
+.post-md ol,
+dl,
+dir,
+.post-md menu {
+  margin: 1.12em 0;
+}
+.post-md h5 {
+  font-size: 0.83em;
+  margin: 1.5em 0;
+}
+.post-md h6 {
+  font-size: 0.75em;
+  margin: 1.67em 0;
+}
+.post-md h1,
+h2,
+h3,
+h4,
+.post-md h5,
+h6,
+b,
+.post-md strong {
+  font-weight: bolder;
+}
+.post-md blockquote {
+  margin-left: 40px;
+  margin-right: 40px;
+}
+.post-md i,
+cite,
+em,
+.post-md var,
+address {
+  font-style: italic;
+}
+.post-md pre,
+tt,
+code,
+.post-md kbd,
+samp {
+  font-family: monospace;
+}
+.post-md pre {
+  white-space: pre;
+}
+.post-md button,
+textarea,
+.post-md input,
+select {
+  display: inline-block;
+}
+.post-md big {
+  font-size: 1.17em;
+}
+.post-md small,
+sub,
+sup {
+  font-size: 0.83em;
+}
+.post-md sub {
+  vertical-align: sub;
+}
+.post-md sup {
+  vertical-align: super;
+}
+.post-md table {
+  border-spacing: 2px;
+}
+.post-md thead,
+tbody,
+.post-md tfoot {
+  vertical-align: middle;
+}
+.post-md td,
+th,
+tr {
+  vertical-align: inherit;
+}
+.post-md s,
+strike,
+del {
+  text-decoration: line-through;
+}
+.post-md hr {
+  border: 1px inset;
+}
+.post-md ol,
+ul,
+dir,
+.post-md menu,
+dd {
+  margin-left: 40px;
+}
+.post-md ol {
+  list-style-type: decimal;
+}
+.post-md ol ul,
+ul ol,
+.post-md ul ul,
+ol ol {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+.post-md u,
+ins {
+  text-decoration: underline;
+}
+.post-md br:before {
+  content: "\A";
+  white-space: pre-line;
+}
+.post-md center {
+  text-align: center;
+}
+.post-md :link,
+:visited {
+  text-decoration: underline;
+}
+.post-md :focus {
+  outline: thin dotted invert;
+}
+
+.post-md ul {
+  padding-left: 1rem;
+  list-style: circle;
+}
+
+.post-md ol {
+  padding-left: 1rem;
+  list-style: decimal;
+}
